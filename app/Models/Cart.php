@@ -13,4 +13,9 @@ class Cart extends Model
     public $timestamps = false;
 
     protected $fillable = ['autor_id', 'article_id', 'article_number'];
+
+    public function article()
+    {
+        return $this->belongsTo(Article::class, 'article_id', 'article_id');
+    }
 }

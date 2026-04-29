@@ -29,4 +29,42 @@ class CartController extends Controller
 
         return redirect()->back()->with('success', 'Produit ajouté au panier !');
     }
+    public function index()
+    {
+        $userId = Auth::id();
+        $cartItems = Cart::with('article')->where('autor_id', $userId)->get();
+        
+        $total = 0;
+        foreach ($cartItems as $item) {
+            if ($item->article) {
+                $total += $item->article->price * $item->article_number;
+            }
+        }
+
+        return view('cart', compact('cartItems', 'total'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'quantity' => 'required|integer|min:1'
+        ]);
+
+        $userId = Auth::id();
+        $cartItem = Cart::where('autor_id', $userId)->where('cart_id', $id)->firstOrFail();
+        
+        $cartItem->article_number = $request->quantity;
+        $cartItem->save();
+
+        return redirect()->back()->with('success', 'Quantité mise à jour !');
+    }
+
+    public function remove($id)
+    {
+        $userId = Auth::id();
+        $cartItem = Cart::where('autor_id', $userId)->where('cart_id', $id)->firstOrFail();
+        $cartItem->delete();
+
+        return redirect()->back()->with('success', 'Article retiré du panier !');
+    }
 }
