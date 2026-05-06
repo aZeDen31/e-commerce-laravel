@@ -34,4 +34,10 @@ class ArticleController extends Controller
             'selectedSort' => $request->sort
         ]);
     }
+
+    public function show($id)
+    {
+        $article = Article::with('category')->findOrFail($id);
+        return view('product_detail', compact('article'));
+    }
 }

@@ -11,6 +11,13 @@
         </div>
     @endif
 
+    @if(session('error'))
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            {{ session('error') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endif
+
     @if($cartItems->isEmpty())
         <div class="text-center py-5">
             <div class="mb-4">
@@ -94,7 +101,10 @@
                             <span class="fw-bold fs-5 text-primary">{{ number_format($total, 2) }} €</span>
                         </div>
                         
-                        <button class="btn btn-primary w-100 btn-lg rounded-pill shadow-sm">Passer à la caisse</button>
+                        <form action="{{ route('cart.checkout') }}" method="POST">
+                            @csrf
+                            <button type="submit" class="btn btn-primary w-100 btn-lg rounded-pill shadow-sm">Passer à la caisse</button>
+                        </form>
                     </div>
                 </div>
             </div>

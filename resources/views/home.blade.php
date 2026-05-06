@@ -15,7 +15,7 @@
                 <div class="carousel-caption d-none d-md-block" style="background: rgba(0,0,0,0.5); border-radius: 15px; padding: 20px;">
                     <h2 class="display-4 fw-bold">Innovation à Votre Portée</h2>
                     <p class="lead">Découvrez les derniers produits tech au meilleur prix sur SwiftShop.</p>
-                    <a href="/products" class="btn btn-primary btn-lg px-4">Acheter Maintenant</a>
+                    <a href="/products?category=1" class="btn btn-primary btn-lg px-4">Acheter Maintenant</a>
                 </div>
             </div>
             <div class="carousel-item" style="height: 500px;">
@@ -23,7 +23,7 @@
                 <div class="carousel-caption d-none d-md-block" style="background: rgba(0,0,0,0.5); border-radius: 15px; padding: 20px;">
                     <h2 class="display-4 fw-bold">Style & Élégance</h2>
                     <p class="lead">Exprimez votre personnalité avec notre nouvelle collection de mode.</p>
-                    <a href="/products" class="btn btn-warning btn-lg px-4 text-dark font-weight-bold">Explorer la Mode</a>
+                    <a href="/products?category=2" class="btn btn-warning btn-lg px-4 text-dark font-weight-bold">Explorer la Mode</a>
                 </div>
             </div>
             <div class="carousel-item" style="height: 500px;">
@@ -31,7 +31,7 @@
                 <div class="carousel-caption d-none d-md-block" style="background: rgba(0,0,0,0.5); border-radius: 15px; padding: 20px;">
                     <h2 class="display-4 fw-bold">Votre Maison, Votre Univers</h2>
                     <p class="lead">Transformez votre intérieur avec des pièces uniques et modernes.</p>
-                    <a href="/products" class="btn btn-success btn-lg px-4">Décorer Ma Maison</a>
+                    <a href="/products?category=3" class="btn btn-success btn-lg px-4">Décorer Ma Maison</a>
                 </div>
             </div>
         </div>

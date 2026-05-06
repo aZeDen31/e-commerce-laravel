@@ -67,4 +67,53 @@ class CartController extends Controller
 
         return redirect()->back()->with('success', 'Article retiré du panier !');
     }
+
+    public function checkout()
+    {
+        $user = Auth::user();
+        $cartItems = Cart::with('article')->where('autor_id', $user->id)->get();
+
+        if ($cartItems->isEmpty()) {
+            return redirect()->back()->with('error', 'Votre panier est vide.');
+        }
+
+        $total = 0;
+        foreach ($cartItems as $item) {
+            if ($item->article) {
+                $total += $item->article->price * $item->article_number;
+            }
+        }
+
+        if ($user->solde < $total) {
+            return redirect()->back()->with('error', 'Solde insuffisant pour passer la commande. Veuillez recharger votre compte.');
+        }
+
+        // Déduire le solde
+        $user->solde -= $total;
+        $user->save();
+
+        // Créer la commande
+        $order = \App\Models\Order::create([
+            'user_id' => $user->id,
+            'total' => $total,
+            'status' => 'en attente',
+        ]);
+
+        // Ajouter les articles à la commande
+        foreach ($cartItems as $item) {
+            if ($item->article) {
+                \App\Models\OrderItem::create([
+                    'order_id' => $order->id,
+                    'article_id' => $item->article_id,
+                    'quantity' => $item->article_number,
+                    'price' => $item->article->price,
+                ]);
+            }
+        }
+
+        // Vider le panier
+        Cart::where('autor_id', $user->id)->delete();
+
+        return redirect()->route('profile')->with('success', 'Votre commande a été passée avec succès !');
+    }
 }

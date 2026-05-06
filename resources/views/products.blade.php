@@ -63,19 +63,21 @@
                     @foreach($articles as $article)
                         <div class="col-md-6 col-lg-4">
                             <div class="card h-100 border-0 shadow-sm hover-shadow transition">
-                                <div class="position-relative overflow-hidden" style="height: 200px; background-color: #f8f9fa;">
-                                    <img src="{{ asset('articlepic/' . $article->article_image) }}" 
-                                         class="card-img-top w-100 h-100 p-3" 
-                                         alt="{{ $article->article_name }}"
-                                         style="object-fit: contain;">
-                                </div>
-                                <div class="card-body d-flex flex-column">
-                                    <div class="mb-2">
-                                        <small class="text-muted text-uppercase tracking-wider fw-bold" style="font-size: 0.7rem;">
-                                            {{ $article->category->name ?? 'Sans catégorie' }}
-                                        </small>
+                                <a href="{{ route('products.show', $article->article_id) }}" class="text-decoration-none text-dark d-block">
+                                    <div class="position-relative overflow-hidden" style="height: 200px; background-color: #f8f9fa;">
+                                        <img src="{{ asset('articlepic/' . $article->article_image) }}" 
+                                             class="card-img-top w-100 h-100 p-3" 
+                                             alt="{{ $article->article_name }}"
+                                             style="object-fit: contain;">
                                     </div>
-                                    <h5 class="card-title fw-bold mb-2 h6">{{ $article->article_name }}</h5>
+                                    <div class="card-body d-flex flex-column">
+                                        <div class="mb-2">
+                                            <small class="text-muted text-uppercase tracking-wider fw-bold" style="font-size: 0.7rem;">
+                                                {{ $article->category->name ?? 'Sans catégorie' }}
+                                            </small>
+                                        </div>
+                                        <h5 class="card-title fw-bold mb-2 h6">{{ $article->article_name }}</h5>
+                                </a>
                                     <p class="card-text text-muted small mb-3 flex-grow-1">
                                         {{ Str::limit($article->description, 80) }}
                                     </p>
